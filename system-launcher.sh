@@ -82,7 +82,7 @@ launch_full_system() {
     echo " STEP 2: プレジデント起動（Claude Code）"
     echo "==============================================="
     echo "⚠️  別ターミナルでClaudeCodeを起動してください："
-    echo "   ./start-president.sh $project_name"
+    echo "   ./team-manager.sh $project_name president start"
     echo ""
     echo -n "プレジデント起動完了後、Enterを押してください..."
     read
@@ -94,7 +94,7 @@ launch_full_system() {
     echo " STEP 3: Multiagentチーム起動（Claude Code）"
     echo "==============================================="  
     echo "⚠️  別ターミナルでClaudeCodeを起動してください："
-    echo "   ./start-team.sh $project_name"
+    echo "   ./team-manager.sh $project_name multiagent start"
     echo ""
     echo -n "Multiagentチーム起動完了後、Enterを押してください..."
     read
@@ -106,7 +106,7 @@ launch_full_system() {
     echo " STEP 4: Fixチーム起動（Claude + 手動）"
     echo "==============================================="
     echo "⚠️  以下を実行してください："
-    echo "   1) 別ターミナルで: ./start-errorfix.sh $project_name"
+    echo "   1) 別ターミナルで: ./team-manager.sh $project_name errorfix start"
     echo "   2) Claude起動後、ペイン0.1でGemini手動起動"
     echo "   3) ペイン0.0でCodex手動起動"
     echo ""
@@ -161,7 +161,7 @@ launch_full_system() {
     echo ""
 
     echo "🎯 各チームに初期指示を送信します..."
-    ./president-command.sh "$project_name" "6段階システム起動完了。プロジェクト開始指示を出してください。"
+    ./communication-hub.sh "$project_name" president "6段階システム起動完了。プロジェクト開始指示を出してください。"
     
     log_action "$project_name" "FULL_SYSTEM" "6段階システム起動完了"
     echo ""
@@ -206,9 +206,9 @@ launch_quick_setup() {
     echo "✅ 基本セットアップ完了"
     echo ""
     echo "次のステップ："
-    echo "1. ./start-president.sh $project_name"
-    echo "2. ./start-team.sh $project_name"
-    echo "3. ./start-errorfix.sh $project_name"
+    echo "1. ./team-manager.sh $project_name president start"
+    echo "2. ./team-manager.sh $project_name multiagent start"
+    echo "3. ./team-manager.sh $project_name errorfix start"
 }
 
 # 個別起動関数
@@ -216,21 +216,21 @@ launch_president() {
     local project_name="$1"
     echo "🎯 プレジデント起動中..."
     setup_project_env "$project_name"
-    ./start-president.sh "$project_name"
+    ./team-manager.sh "$project_name" president start
 }
 
 launch_team() {
     local project_name="$1"
     echo "👥 Multiagentチーム起動中..."
     setup_project_env "$project_name"
-    ./start-team.sh "$project_name"
+    ./team-manager.sh "$project_name" multiagent start
 }
 
 launch_errorfix() {
     local project_name="$1"
     echo "🛠️ Fixチーム起動中..."
     setup_project_env "$project_name"
-    ./start-errorfix.sh "$project_name"
+    ./team-manager.sh "$project_name" errorfix start
 }
 
 # メイン処理

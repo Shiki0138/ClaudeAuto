@@ -2,8 +2,8 @@
 
 ## 📋 重要: 開発ルール・仕様書遵守
 **作業開始前に必ず確認すること**: 
-- `development/development_rules.md` (開発ルール)
-- `specifications/project_spec.md` (プロジェクト仕様書)
+- `config/development_rules.md` (開発ルール)
+- `config/project_spec.md` (プロジェクト仕様書)
 - チーム全体の品質管理責任
 - 定期的なGitHubデプロイ管理
 - 史上最強のシステム作りをチームに徹底
@@ -21,26 +21,26 @@
 ## 送信コマンド
 ```bash
 # 開発ルール確認（必須）
-cat development/development_rules.md
+cat config/development_rules.md
 
 # 仕様書確認（必須）
-cat specifications/project_spec.md
+cat config/project_spec.md
 
 # 作業開始ログ記録
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] [START] [$PROJECT_NAME] [boss1] チーム指示開始" >> development/development_log.txt
 
 # 初回指示（仕様書遵守を徹底）
-./agent-send.sh $PROJECT_NAME worker1 "あなたはworker1です。specifications/project_spec.md の仕様書を確認して作業開始"
-./agent-send.sh $PROJECT_NAME worker2 "あなたはworker2です。specifications/project_spec.md の仕様書を確認して作業開始"
-./agent-send.sh $PROJECT_NAME worker3 "あなたはworker3です。specifications/project_spec.md の仕様書を確認して作業開始"
-./agent-send.sh $PROJECT_NAME worker4 "あなたはworker4です。specifications/project_spec.md の仕様書を確認して作業開始"
-./agent-send.sh $PROJECT_NAME worker5 "あなたはworker5です。specifications/project_spec.md の仕様書を確認して作業開始"
+./communication-hub.sh $PROJECT_NAME worker1 "あなたはworker1です。config/project_spec.md の仕様書を確認して作業開始"
+./communication-hub.sh $PROJECT_NAME worker2 "あなたはworker2です。config/project_spec.md の仕様書を確認して作業開始"
+./communication-hub.sh $PROJECT_NAME worker3 "あなたはworker3です。config/project_spec.md の仕様書を確認して作業開始"
+./communication-hub.sh $PROJECT_NAME worker4 "あなたはworker4です。config/project_spec.md の仕様書を確認して作業開始"
+./communication-hub.sh $PROJECT_NAME worker5 "あなたはworker5です。config/project_spec.md の仕様書を確認して作業開始"
 
 # 指示完了ログ記録
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] [COMPLETE] [$PROJECT_NAME] [boss1] 全worker指示完了" >> development/development_log.txt
 
 # 最後のworkerから完了報告受信後
-./agent-send.sh $PROJECT_NAME president "全員完了しました"
+./communication-hub.sh $PROJECT_NAME president "全員完了しました"
 ```
 
 ## 自動再指示システム
@@ -67,11 +67,11 @@ case $NEXT_CYCLE in
     *) TASK="継続作業サイクル${NEXT_CYCLE}" ;;
 esac
 
-./agent-send.sh $PROJECT_NAME worker1 "あなたはworker1です。仕様書を確認して${TASK}開始"
-./agent-send.sh $PROJECT_NAME worker2 "あなたはworker2です。仕様書を確認して${TASK}開始"
-./agent-send.sh $PROJECT_NAME worker3 "あなたはworker3です。仕様書を確認して${TASK}開始"
-./agent-send.sh $PROJECT_NAME worker4 "あなたはworker4です。仕様書を確認して${TASK}開始"
-./agent-send.sh $PROJECT_NAME worker5 "あなたはworker5です。仕様書を確認して${TASK}開始"
+./communication-hub.sh $PROJECT_NAME worker1 "あなたはworker1です。仕様書を確認して${TASK}開始"
+./communication-hub.sh $PROJECT_NAME worker2 "あなたはworker2です。仕様書を確認して${TASK}開始"
+./communication-hub.sh $PROJECT_NAME worker3 "あなたはworker3です。仕様書を確認して${TASK}開始"
+./communication-hub.sh $PROJECT_NAME worker4 "あなたはworker4です。仕様書を確認して${TASK}開始"
+./communication-hub.sh $PROJECT_NAME worker5 "あなたはworker5です。仕様書を確認して${TASK}開始"
 
 echo "サイクル${NEXT_CYCLE}の指示を全員に送信完了"
 

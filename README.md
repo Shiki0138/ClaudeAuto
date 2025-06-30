@@ -137,8 +137,8 @@ PRESIDENT（完了確認）
 ## 📋 開発ルール・仕様書システム
 
 ### 必須確認ファイル
-- `development/development_rules.md` - 開発ルール
-- `specifications/project_spec.md` - プロジェクト仕様書
+- `config/development_rules.md` - 開発ルール
+- `config/project_spec.md` - プロジェクト仕様書
 
 ### 重要原則
 - **ユーザ第一主義**での開発

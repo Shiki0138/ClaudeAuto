@@ -28,19 +28,19 @@
 
 ### コマンド実行
 ```bash
-./president-command.sh $PROJECT_NAME "指示内容"
+./communication-hub.sh $PROJECT_NAME "指示内容"
 ```
 
 ### 具体例
 ```bash
 # プロジェクト開始
-./president-command.sh myproject "プロジェクトを開始してください"
+./communication-hub.sh myproject "プロジェクトを開始してください"
 
 # エラー対応
-./president-command.sh myproject "エラー修正：ビルドエラーが発生しています"
+./communication-hub.sh myproject "エラー修正：ビルドエラーが発生しています"
 
 # 進捗確認
-./president-command.sh myproject "現在の進捗を確認してください"
+./communication-hub.sh myproject "現在の進捗を確認してください"
 ```
 
 ## 📊 指示フロー

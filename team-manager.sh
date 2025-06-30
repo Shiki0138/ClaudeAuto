@@ -109,8 +109,8 @@ manage_president() {
             tmux send-keys -t "$session_name" "あなたはPRESIDENTです。指示書に従って統括管理してください。
 
 重要事項：
-- development/development_rules.md を必ず確認
-- specifications/project_spec.md を必ず確認  
+- config/development_rules.md を必ず確認
+- config/project_spec.md を必ず確認  
 - 全ての指示の発信源として行動
 - 品質管理監督の実施
 - UX/UI変更時の確認・承認
@@ -222,8 +222,8 @@ manage_multiagent() {
             tmux send-keys -t "$session_name:0.0" "あなたはboss1です。指示書に従ってチーム管理してください。
 
 重要事項：
-- development/development_rules.md を必ず確認
-- specifications/project_spec.md を必ず確認
+- config/development_rules.md を必ず確認
+- config/project_spec.md を必ず確認
 - チーム全体の品質管理責任
 - 自動再指示システムの実行
 
@@ -237,8 +237,8 @@ PRESIDENTからの指示を待機中です。" C-m
                 tmux send-keys -t "$session_name:0.$i" "あなたはworker$iです。指示書に従って作業してください。
 
 重要事項：
-- development/development_rules.md を必ず確認
-- specifications/project_spec.md を必ず確認
+- config/development_rules.md を必ず確認
+- config/project_spec.md を必ず確認
 - ユーザ第一主義で開発する
 - 史上最強のシステムを作る意識を持つ
 - 全作業を開発ログに記録する
@@ -348,8 +348,8 @@ manage_errorfix() {
             tmux send-keys -t "$session_name:0.2" "あなたはError Fixチームのリーダー(Claude)です。
 
 重要事項：
-- development/development_rules.md を必ず確認
-- specifications/project_spec.md を必ず確認
+- config/development_rules.md を必ず確認
+- config/project_spec.md を必ず確認
 - Gemini(CI/CD)・Codex(コード解析)への分析指示
 - エラー修正の統括管理
 - 解決策の決定と実装指示

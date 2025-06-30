@@ -2,8 +2,8 @@
 
 ## 📋 重要: 開発ルール・仕様書遵守
 **作業開始前に必ず確認すること**: 
-- `development/development_rules.md` (開発ルール)
-- `specifications/project_spec.md` (プロジェクト仕様書)
+- `config/development_rules.md` (開発ルール)
+- `config/project_spec.md` (プロジェクト仕様書)
 - ユーザ第一主義で開発する
 - 史上最強のシステムを作る意識を持つ
 - UX/UI変更時はPRESIDENTに確認
@@ -22,11 +22,11 @@
 ### 他のworkerに作業指示
 ```bash
 # 例：worker1がworker2に指示
-./agent-send.sh $PROJECT_NAME worker2 "あなたはworker2です。追加作業を開始してください"
+./communication-hub.sh $PROJECT_NAME worker2 "あなたはworker2です。追加作業を開始してください"
 
 # 例：worker3がworker4,5に連携指示
-./agent-send.sh $PROJECT_NAME worker4 "あなたはworker4です。連携作業開始"
-./agent-send.sh $PROJECT_NAME worker5 "あなたはworker5です。連携作業開始"
+./communication-hub.sh $PROJECT_NAME worker4 "あなたはworker4です。連携作業開始"
+./communication-hub.sh $PROJECT_NAME worker5 "あなたはworker5です。連携作業開始"
 ```
 
 ### 作業完了の連鎖通知
@@ -34,17 +34,17 @@
 # 完了時に次のworkerに通知
 NEXT_WORKER=$(($(echo $0 | grep -o '[0-9]') + 1))
 if [ $NEXT_WORKER -le 5 ]; then
-    ./agent-send.sh $PROJECT_NAME worker$NEXT_WORKER "前の作業完了。あなたの番です"
+    ./communication-hub.sh $PROJECT_NAME worker$NEXT_WORKER "前の作業完了。あなたの番です"
 fi
 ```
 
 ## 実行コマンド
 ```bash
 # 開発ルール確認（必須）
-cat development/development_rules.md
+cat config/development_rules.md
 
 # 仕様書確認（必須）
-cat specifications/project_spec.md
+cat config/project_spec.md
 
 # 開発ログ記録（自然言語での詳細な記録）
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$PROJECT_NAME] [$(whoami)] 
@@ -88,11 +88,11 @@ source .env_${PROJECT_NAME}
 if [ $COMPLETED -eq 5 ]; then
     echo "全員の作業完了を確認（最後の完了者として報告）"
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] [COMPLETE] [$PROJECT_NAME] [worker${WORKER_NUM}] 全員作業完了確認・報告実施" >> development/development_log.txt
-    ./agent-send.sh $PROJECT_NAME boss1 "全員作業完了しました（$COMPLETED/5）"
+    ./communication-hub.sh $PROJECT_NAME boss1 "全員作業完了しました（$COMPLETED/5）"
 elif [ $COMPLETED -ge 3 ]; then
     # 3人以上完了時の進捗報告（オプション）
     echo "進捗報告: $COMPLETED/5 workers完了"
-    # ./agent-send.sh $PROJECT_NAME boss1 "進捗報告: $COMPLETED/5 workers完了"
+    # ./communication-hub.sh $PROJECT_NAME boss1 "進捗報告: $COMPLETED/5 workers完了"
 else
     echo "他のworkerの完了を待機中... ($COMPLETED/5 完了)"
 fi
@@ -112,18 +112,18 @@ fi
 source .env_${PROJECT_NAME}
 
 # boss1への報告
-./agent-send.sh $PROJECT_NAME boss1 "全員作業完了しました（5/5）"
+./communication-hub.sh $PROJECT_NAME boss1 "全員作業完了しました（5/5）"
 
 # worker間通信
-./agent-send.sh $PROJECT_NAME worker2 "連携作業開始してください"
+./communication-hub.sh $PROJECT_NAME worker2 "連携作業開始してください"
 
 # エラー報告（必要時）
-./agent-send.sh $PROJECT_NAME boss1 "エラー発生: [エラー内容]"
+./communication-hub.sh $PROJECT_NAME boss1 "エラー発生: [エラー内容]"
 ```
 
 ## 📋 開発ルール・仕様書遵守チェックリスト
-- [ ] 作業開始前に `development/development_rules.md` を確認
-- [ ] 作業開始前に `specifications/project_spec.md` を確認
+- [ ] 作業開始前に `config/development_rules.md` を確認
+- [ ] 作業開始前に `config/project_spec.md` を確認
 - [ ] 仕様書に従った作業実施
 - [ ] 作業開始・完了をログに記録
 - [ ] ユーザビリティを意識した作業

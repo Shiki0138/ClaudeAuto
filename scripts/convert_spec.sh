@@ -25,17 +25,17 @@ echo "====================="
 echo ""
 
 # 仕様書ファイル確認
-SPEC_FILE="specifications/project_spec.txt"
+SPEC_FILE="config/project_spec.txt"
 if [ ! -f "$SPEC_FILE" ]; then
     log_error "仕様書ファイルが見つかりません: $SPEC_FILE"
-    echo "specifications/project_spec.txt を作成してください。"
+    echo "config/project_spec.txt を作成してください。"
     exit 1
 fi
 
 log_info "仕様書ファイル確認: $SPEC_FILE"
 
 # 出力ファイル設定
-OUTPUT_DIR="specifications"
+OUTPUT_DIR="config"
 OUTPUT_FILE="$OUTPUT_DIR/project_spec.md"
 
 log_info "Markdown変換開始..."
@@ -265,7 +265,7 @@ else
 fi
 
 # 改善提案をファイルに保存
-SUGGESTION_FILE="specifications/improvement_suggestions_$(date '+%Y%m%d_%H%M%S').md"
+SUGGESTION_FILE="config/improvement_suggestions_$(date '+%Y%m%d_%H%M%S').md"
 echo "# 🤖 Claude Code 改善提案" > "$SUGGESTION_FILE"
 echo "" >> "$SUGGESTION_FILE"
 echo "**生成日時**: $(date '+%Y-%m-%d %H:%M:%S')" >> "$SUGGESTION_FILE"
