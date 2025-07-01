@@ -421,16 +421,13 @@ manage_all_teams() {
             manage_president "$project_name" "start"
             sleep 2
             manage_multiagent "$project_name" "start"
-            sleep 2
-            manage_errorfix "$project_name" "start"
-            echo "✅ 全チーム起動完了"
+            echo "✅ プレジデント・マルチエージェントチーム起動完了"
             ;;
         "stop")
             echo "🛑 全チーム停止中..."
             manage_president "$project_name" "stop"
             manage_multiagent "$project_name" "stop"
-            manage_errorfix "$project_name" "stop"
-            echo "✅ 全チーム停止完了"
+            echo "✅ プレジデント・マルチエージェントチーム停止完了"
             ;;
         "restart")
             manage_all_teams "$project_name" "stop"
@@ -442,7 +439,6 @@ manage_all_teams() {
             echo ""
             manage_president "$project_name" "status"
             manage_multiagent "$project_name" "status"
-            manage_errorfix "$project_name" "status"
             ;;
     esac
 }

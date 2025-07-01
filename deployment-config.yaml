@@ -1,0 +1,167 @@
+# 🚀 ClaudeAuto 本番デプロイ設定
+# Google Chrome環境を考慮した本番環境設定
+
+# プロジェクト基本設定
+project:
+  name: claude-auto
+  version: 2.0.0
+  description: "完全自動化システム開発環境"
+
+# デプロイメント設定
+deployment:
+  # 環境別設定
+  environments:
+    development:
+      base_url: "http://localhost:3000"
+      debug: true
+      auto_reload: true
+    
+    staging:
+      base_url: "https://staging.claude-auto.com"
+      debug: false
+      auto_reload: false
+    
+    production:
+      base_url: "https://claude-auto.com"
+      debug: false
+      auto_reload: false
+      performance_monitoring: true
+
+# システム構成
+system:
+  teams:
+    president:
+      instances: 1
+      memory: "2GB"
+      cpu: "1"
+      auto_scale: false
+    
+    multiagent:
+      instances: 1
+      memory: "4GB"
+      cpu: "2"
+      auto_scale: true
+      max_instances: 3
+      workers_per_instance: 5
+
+# 自動化設定
+automation:
+  auto_response:
+    enabled: true
+    monitoring_interval: 2  # 秒
+    response_timeout: 30   # 秒
+    
+  communication:
+    president_to_boss:
+      enabled: true
+      auto_forward: true
+    
+    boss_to_workers:
+      enabled: true
+      auto_distribute: true
+      distribution_strategy: "round_robin"
+    
+    workers_to_boss:
+      enabled: true
+      auto_report: true
+    
+    boss_to_president:
+      enabled: true
+      auto_summarize: true
+
+# セキュリティ設定
+security:
+  api_keys:
+    management: "env:CLAUDE_AUTO_API_KEY"
+  
+  cors:
+    enabled: true
+    allowed_origins:
+      - "https://claude-auto.com"
+      - "https://*.claude-auto.com"
+  
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 60
+
+# ロギング設定
+logging:
+  level: "INFO"
+  retention_days: 30
+  destinations:
+    - type: "file"
+      path: "/var/log/claude-auto/"
+    - type: "cloud"
+      service: "cloudwatch"
+
+# モニタリング設定
+monitoring:
+  health_checks:
+    enabled: true
+    interval: 60  # 秒
+    endpoints:
+      - "/health/president"
+      - "/health/multiagent"
+  
+  metrics:
+    enabled: true
+    export_interval: 300  # 秒
+    
+# バックアップ設定
+backup:
+  enabled: true
+  schedule: "0 2 * * *"  # 毎日2:00
+  retention_days: 7
+  destinations:
+    - "s3://claude-auto-backups/"
+
+# CI/CD設定
+ci_cd:
+  pipeline:
+    - stage: "test"
+      commands:
+        - "npm test"
+        - "npm run lint"
+    
+    - stage: "build"
+      commands:
+        - "npm run build"
+        - "docker build -t claude-auto ."
+    
+    - stage: "deploy"
+      strategy: "blue_green"
+      health_check_timeout: 300  # 秒
+
+# エラーハンドリング
+error_handling:
+  retry_policy:
+    max_attempts: 3
+    backoff_multiplier: 2
+  
+  fallback_strategy:
+    enabled: true
+    fallback_to: "manual_intervention"
+
+# パフォーマンス最適化
+performance:
+  caching:
+    enabled: true
+    ttl: 3600  # 秒
+  
+  compression:
+    enabled: true
+    types:
+      - "text/html"
+      - "application/json"
+      - "text/css"
+      - "application/javascript"
+
+# スケーリング設定
+scaling:
+  auto_scaling:
+    enabled: true
+    min_instances: 1
+    max_instances: 10
+    target_cpu_utilization: 70
+    scale_up_cooldown: 300    # 秒
+    scale_down_cooldown: 600  # 秒

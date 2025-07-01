@@ -101,43 +101,23 @@ launch_full_system() {
     log_action "$project_name" "MULTIAGENT" "チーム起動確認完了"
     echo ""
 
-    # STEP 4: Fix チーム起動案内
+    # STEP 4: [削除済み - フィックスエラーチーム]
+
+    # STEP 5: 自動応答システム起動
     echo "==============================================="
-    echo " STEP 4: Fixチーム起動（Claude + 手動）"
+    echo " STEP 5: 自動応答システム起動"
     echo "==============================================="
-    echo "⚠️  以下を実行してください："
-    echo "   1) 別ターミナルで: ./team-manager.sh $project_name errorfix start"
-    echo "   2) Claude起動後、ペイン0.1でGemini手動起動"
-    echo "   3) ペイン0.0でCodex手動起動"
-    echo ""
-    echo -n "Fixチーム（Claude+Gemini+Codex）起動完了後、Enterを押してください..."
-    read
-    log_action "$project_name" "ERRORFIX" "Fix チーム起動確認完了"
-    echo ""
-
-    # STEP 5: 連携確認
-    echo "==============================================="
-    echo " STEP 5: 各チーム連携確認"
-    echo "==============================================="
-    echo "通信テストを実行します..."
-
-    # 通信テスト
-    echo "📡 Test 1: PRESIDENT → Boss1"
-    ./agent-send.sh "$project_name" boss1 "システム起動確認テスト。応答してください。"
-    sleep 3
-
-    echo "📡 Test 2: Boss1 → Worker1"
-    ./agent-send.sh "$project_name" worker1 "Worker1応答確認テスト"
-    sleep 3
-
-    echo "📡 Test 3: Error Fix チーム確認"
-    ./agent-send.sh "$project_name" errorfix_claude "Error Fix チーム応答確認テスト"
-    sleep 3
-
-    echo "各チームからの応答を確認してください。"
-    echo -n "すべて正常に応答している場合、Enterを押してください..."
-    read
-    log_action "$project_name" "COMMUNICATION" "通信テスト完了"
+    echo "🤖 自動応答システムを起動します..."
+    
+    # 自動応答システム起動
+    if [ -f "./auto-response-system.sh" ]; then
+        ./auto-response-system.sh "$project_name" start
+        echo "✅ 自動応答システム起動完了"
+    else
+        echo "⚠️  auto-response-system.sh が見つかりません"
+    fi
+    
+    log_action "$project_name" "AUTO_RESPONSE" "自動応答システム起動"
     echo ""
 
     # STEP 6: 仕様書変換と指示開始
@@ -175,7 +155,7 @@ launch_full_system() {
     echo "  ✅ Step 1: セットアップ完了"
     echo "  ✅ Step 2: プレジデント起動完了"  
     echo "  ✅ Step 3: Multiagentチーム起動完了"
-    echo "  ✅ Step 4: Fixチーム起動完了"
+    # Step 4は削除
     echo "  ✅ Step 5: 連携確認完了"
     echo "  ✅ Step 6: 仕様書変換・指示開始完了"
     echo ""
